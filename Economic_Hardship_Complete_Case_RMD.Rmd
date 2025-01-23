@@ -1,0 +1,1127 @@
+---
+title: Economic Hardship and IPV perpetration
+author: C. Andrew Basham Rishav Singh Kalysha Closson
+date: March 23  2023
+---
+
+# Changelog
+March 8 2023: Created program with Rishav's R script to start with (Andrew).
+March 9 2023: Added Kalysha's outcome variable definition code (Andrew).
+March 9 2023: Kalysha cleaning up some of the code and addaing in the tables 
+March 9 2023: added separate code for andrew and kalysha data loading paths (andrew)
+March 9 2023: updated race variable (kalysha) & fixed IPV perpetration variable 
+March 9 2023: updated nb variables so that they were numeric not factor now runs
+March 11 2023: Included packages and cleaned code for all of the plots and tables of the regression results. Added effect modification code not yet run to be checked for errors (Rishav) 
+March 13 2023: Fixed an error in the food harder variable (Kalysha)
+March 13 2023: Fixed error in plots (Rishav)
+March 14 2023: Added PS-MW analysis (Andrew) 
+March 14 2023: Cleaned up stray ``` in program and began "automated" Table 1 OR compiling code (Andrew) 
+March 15 2023: removed OR plots from the program as they presented adjusted covariate ORs that
+are subject to table 1 fallacy (andrew).
+March 16 2023: Added in some potential effect modification models + comments on the analyses getting an error in the weighting code below (Kalysha)
+March 23 2023: Changed the outcome variable to be combined and we added income into the model. 
+May 18: removed some excess programming and added e-value analysis; added n/% IPV by econ hardship which is needed for abstract to show absolute number and percent
+Sept 5th: Removed extraneous code and cleaned file (rishav)
+
+
+# Work needed
+<!-- Update inclusion criteria to require  complete data on both sIPV and pIPV and re-run.   -->
+
+<!-- Why is anychildren adjusted but not the number of children?  Both are listed in the DAG so they should both be adjusted for.     -->
+
+<!-- Fix the "Create interaction terms" operations in the Effect Modification Analysis section, which does not run currently and is commented out. -->
+
+Fix/expand the "automated" Table 1 OR compiling code to output a CSV with ORs and CIs for bivariable ORs of covariates.  Add similar code for Table 2 OR and CI compiling to output a CSV with Table 2 Results for (crude, age-adj, cov-adj).  
+
+Add PS-MW analysis of the secondary outcomes (sIPV and pIPV) - note, this could be done in one dataset, rather than having separate datasets for physical, sexual, and any IPV. 
+
+KC: Do we want to look at the exposures on their own? 
+
+# Project Information
+Title: 
+Economic Hardship and Perpetration of Intimate Partner Violence by Young Men aged 16-24 Residing in the eThekwini District of Durban, South Africa during the COVID-19 Pandemic: A Cross-Sectional Study
+
+SAP Authors: 
+Campion Zharima, Rishav Singh, C. Andrew Basham, Kalysha Closson
+Project: AYAZAZI RIGHTS
+Investigators: 
+Angela Kaida (PI, Simon Fraser University), Kalysha Closson 
+Funding Information: AYAZAZI RIGHTS is funded by the Centre for International Child Health (CICH) through the generous support of the British Columbia Children’s Hospital Foundation, Canada.
+Ethics Approval: Research Ethics British Columbia (REBC) network and the Office of Research Ethics (ORE) at Simon Fraser University in Canada (REB number: H21-02027), and by the University of the Witwatersrand Human Research Ethics Committee (Wits HREC-Medical) in South Africa (REB number: M210863). Participants were provided with an electronic consent letter, detailing the purpose of the survey, benefits and risk for participation, and key contacts for further question prior to accessing to the questionnaire. A list of resources including online and in-person local support services such as for mental health and sexual and reproductive health care was provided at the end of the questionnaire.
+
+
+# Objective
+To estimate the effect of economic hardship during the COVID-19 pandemic on the perpetration of intimate partner violence (IPV) by young men in South Africa. 
+
+# Study Population
+The study population is young men in South Africa of the eThekwini District of Durban. Data on this population were sourced from AYAZAZI RIGHTS, which was a mobile anonymous online survey distributed among South African youth with the general aim of filling in knowledge gaps around COVID-19 experiences among adolescents.  The survey solicited data about sexual orientation and gender identity, experiences of economic hardship due to the pandemic and perpetration of intimate partner violence, as well as sociodemographic and health status data.   
+
+
+# Data Source
+“AYAZAZI RIGHTS (Rapid Investigation of Gendered Health outcomes in the Time of Sars-Cov-2) is a cross-sectional survey that aims to address youth experiences of COVID-19 public health responses and impacts on priority sexual and reproductive health and mental health outcomes. This mobile health survey was conducted from the 21st of December 2021 to the 31st of May 2022” (AYAZAZI RIGHTS Manuscript Outline v.2.3, July 2022)."
+
+“A multi-pronged recruitment strategy was used to enrol participants, all those activities being led by a trained, local research assistant. First, this included contacts with former participants from studies led by MatCH Research Unit (MRU) who have agreed to be recontacted for other research projects. Those studies were focusing on condom use: Female Condom Contraceptive Study (Coco), conducted in 2019-2021, and a functional performance and acceptability study of a synthetic nitrile male condom, and a latex graphene male condom compared to a standard latex male condom (Karex), conducted in 2021. Both these studies were conducted in Durban area with participants from ages 18-35, some of whom would still qualify for this project. A second strategy was engagement with community-based and youth-led organisations such as Community Advisory Boards (CAB), especially the Adolescent CAB(ACAB) which includes girls from High schools and Tertiary institutions from in and around the Durban area, as well as Senior CAB members of the MRU. Third, flyer distributions were organised in areas highly frequented by youth such as commercial retail settings, transit areas on their way into work or school, CAB offices and health care facilities. The survey was also advertised online and via e-mails to various local institutions. For example, it was displayed on the MRU website as a pop-up message, and posted on social media platforms of youth-led organisations and of Community Media Trust, a not-for-profit company located in Durban that specializes in communication. Participants had also the opportunity to share the link and the QR code of the survey to their eligible peers and family members. The study team made contact with the universities to share the survey to their students but several events prevented us recruiting from universities during the enrolment period (additional ethical clearance requirements, students on strike, serious flooding in mid-April).  To promote further the survey, a prize draw to win cash prizes of R100 (CAD$ 8.50) was organized for participants providing their mobile phone number at the end of the survey. Chances of winning ranged from one in every twenty (Dec 21-mid-Feb 22) to one in every five (mid-Feb to mid-March 22) then one in every ten participants (mid-March-May 22) over the enrolment period. Participants could enter and complete the mobile health survey via a web link at no cost for them, as data needed to fill the survey were covered by the research team thanks to a partnership with the #datafree Moya Messenger App. The web link was made #datafree by the company in exchange of a monthly subscription from our team (R2000 [CAD170] per month)” (AYAZAZI RIGHTS Manuscript Outline v.2.3, July 2022).  
+
+# Libraries
+```{r}
+#install.packages("DataExplorer")
+require(DataExplorer)
+require(Publish)
+require(tidyr)
+require(dplyr)
+#install.packages("tidyverse")
+require(tidyverse)
+require(tableone)
+library(ggplot2)
+#install.packages("epiR")
+#library(epiR)
+#install.packages("sjPlot")
+library(sjPlot)
+#install.packages("mice")
+#install.packages("Publish")
+library(mice)
+library(magrittr)
+library(jtools)
+library(survey)
+
+```
+
+#Load Data
+Inclusion Criteria applied
+•	People identifying as men 
+•	Answered the question on IPV perpetration either physical or sexual (outcome) 
+•	Answered the question of food insecurity OR income decrease (exposure) 
+•	Answers of “prefer not to say” were treated as missing values for the food insecurity variable. 
+
+```{r}
+#getwd()
+#setwd("C:/Users/risha/OneDrive/Documents/")
+
+# Rishav
+##data <- read.csv2("C:/Users/risha/OneDrive/SMDI/ayazazi_smdi_copy/ayazazi_smdi/RIGHTS_2095_Feb2023(in).csv",header=TRUE)
+
+
+# Kalysha data loading
+#data <- read.csv2("~/Simon Fraser University (1sfu)/Julie Jesson - AYAZAZI RIGHTS/Database/RIGHTS_2095_Feb2023.csv", header=TRUE)
+
+Andrew data loading data <- read.csv2("C:/Users/16174/Documents/SFU/Rishav_Campion/RIGHTS_2095_Feb2023.csv", header=TRUE)
+dim(data)
+
+#summary(data)
+ayadata <- data
+
+
+ayadata <- mutate(ayadata,
+    gender_3 = case_when(
+      gender ==1 ~ 1,
+      gender ==2 ~ 0,
+      gender ==3 | gender==4 ~ 2
+    )
+  )
+
+
+
+##subsetting data to include those with gender identity responses n=2068 
+
+ayadata1 <- subset(ayadata, gender_3==0 |gender_3==1 | gender_3==2 )
+
+ayadata1$gendercat[ayadata1$gender_3 == 0] <- "woman"
+ayadata1$gendercat[ayadata1$gender_3 == 1] <- "man"
+ayadata1$gendercat[ayadata1$gender_3 == 2] <- "nb_nogender"
+
+ayadata1$gendercat<-factor(ayadata1$gendercat, levels=c("man", "woman", "nb_nogender"))
+
+filtered_data <- ayadata1[ayadata1$gendercat == "man",]
+filtered_data_backup <- filtered_data
+
+
+```
+
+# Data Management 
+Creates variables for outcomes, exposure, and covariates.
+
+Applies exclusion criterion: Missing values for any of the covariates.
+
+(Andrew Note: might want to clean this up a bit, and consolidate into 1 dataset for whole analysis - i.e., the analytic data).
+
+```{r}
+
+### Outcome variables
+
+# Physical IPV Perpetration = 0 no 1 yes 
+table(filtered_data_backup$rltship_slapping)
+table(filtered_data_backup$rltship_slapping_freq)
+filtered_data_backup <- mutate(filtered_data_backup,
+    perpipv = case_when(
+      rltship_slapping==1 ~ 1, 
+      rltship_slapping==2 ~ 0
+      
+    )
+  )
+
+# Sexual IPV Perpetration (0 no 1 yes )
+table(filtered_data_backup$rltship_youforced)
+table(filtered_data_backup$rltship_youforced_freq)
+filtered_data_backup <- mutate(filtered_data_backup,
+    persipv = case_when(
+      rltship_youforced==1 ~ 1, 
+      rltship_youforced==2 ~ 0
+      
+    )
+  )
+
+table(filtered_data_backup$persipv)
+table(filtered_data_backup$perpipv)
+filtered_data_backup <- mutate(filtered_data_backup,
+    peranyipv = case_when(
+      perpipv==1 |  persipv==1 ~ 1,
+      perpipv==0 & persipv==0 ~0
+      
+    )
+  )
+
+
+# Exposure Variable
+filtered_data_backup <- mutate(filtered_data_backup,
+                               foodharder = case_when(
+                                 fi_change ==1 ~ "Yes",
+                                 fi_change ==2 | fi_change==3 ~ "No or same"))
+
+
+
+
+# Income decrease any 1 increased any 2 stayed the same 3 unsure
+table(filtered_data_backup$income_change)
+filtered_data_backup <- mutate(filtered_data_backup,
+    income_change = case_when(
+      income_change ==1 | income_change==2 ~ 0,
+      income_change ==3 | income_change==4 ~ 1, 
+      income_change ==5 ~ 2,  
+      income_change ==6 ~ 3
+    )
+  )
+
+filtered_data_backup$inc_decrease[filtered_data_backup$income_change==0] <- "yes"
+filtered_data_backup$inc_decrease[filtered_data_backup$income_change==1] <- "no"
+filtered_data_backup$inc_decrease[filtered_data_backup$income_change==2] <- "no"
+filtered_data_backup$inc_decrease[filtered_data_backup$income_change==3] <- NA
+
+
+
+filtered_data_backup <- mutate(filtered_data_backup,
+                               anyhardship = case_when(
+                                 foodharder=="Yes" |  inc_decrease=="yes" ~ "yes",
+                                 foodharder=="No or same" | inc_decrease=="no" ~"no"
+                               )
+)
+
+
+
+##0=no income 1 -3 = 2-4 in datadic 4=3210+
+filtered_data_backup <- mutate(filtered_data_backup,
+    inc_cat = case_when(
+      income ==1~ "aI do not get an income",
+      income ==2 ~"bR1-R800", 
+      income == 3 ~"cR801-R1600", 
+      income == 4 ~"dR1601-R3200", 
+      income ==5 | income==6| income==7 ~"eR3201+"
+    )
+  )
+
+
+
+filtered_data_backup <- mutate(filtered_data_backup,
+    inc_cat2 = case_when(
+      income ==1~ "aI do not get an income",
+      income ==2 | income == 3  ~"bR1-1600", 
+      income == 4 |income ==5 | income==6| income==7 ~"eR1601+"
+    )
+  )
+
+
+
+#Race 
+filtered_data_backup <- mutate(filtered_data_backup,
+    race = case_when(
+      race ==1 | race_other=="Congolese"| race_other=="Ghanaian"| race_other=="Malawian" | race_other=="Mozambican" | race_other=="Namibian"| race_other=="Nigerian"| race_other=="Zimbabwean" ~ 0,
+      race ==2 ~ 1,
+      race ==3 ~ 2,
+      race ==4 ~ 3,
+    )
+  )
+
+filtered_data_backup$blk[filtered_data_backup$race==0] <- "yes"
+filtered_data_backup$blk[filtered_data_backup$race==1] <- "no" 
+filtered_data_backup$blk[filtered_data_backup$race==2] <- "no" 
+filtered_data_backup$blk[filtered_data_backup$race==3] <- "no"
+
+
+
+
+
+##0 not changed or easier 1 harder 2 pnta
+table(filtered_data_backup$fi_change)
+filtered_data_backup <- mutate(filtered_data_backup,
+    foodharder = case_when(
+      fi_change ==1 ~ 1,
+      fi_change ==2 | fi_change==3 ~ 0, 
+      fi_change==4 ~ 2
+    )
+  )
+
+
+
+
+###covariates 
+## sex_orient2 
+filtered_data_backup <- mutate(filtered_data_backup,
+    sex_orient3 = case_when(
+      sex_orient ==1 ~ "hetero",
+      sex_orient ==2 | sex_orient ==3 ~ "lgb",
+      sex_orient ==4 | sex_orient ==5 ~ "ques_or_none"
+    )
+  )
+
+
+filtered_data_backup$sex_orient2[filtered_data_backup$sex_orient3=="hetero"] <- "hetero"
+filtered_data_backup$sex_orient2[filtered_data_backup$sex_orient3=="lgb"] <- "LGBQQA"
+filtered_data_backup$sex_orient2[filtered_data_backup$sex_orient3=="ques_or_none"] <- "LGBQQA"
+table(filtered_data_backup$sex_orient2)
+
+##schoolemploy"
+
+##0 no 1 yes 
+table(filtered_data_backup$school_enrol)
+filtered_data_backup <- mutate(filtered_data_backup,
+    school_enrol = case_when(
+      school_enrol ==2 ~ 0,
+      school_enrol ==1 ~ 1
+    )
+  )
+
+##0 no 1 yes 
+table(filtered_data_backup$employment_enrol)
+filtered_data_backup <- mutate(filtered_data_backup,
+    employment_enrol = case_when(
+      employment_enrol ==2 ~ 0,
+      employment_enrol ==1 ~ 1
+    )
+  )
+
+##0 no 1 yes 
+filtered_data_backup <- mutate(filtered_data_backup,
+    schoolemploy = case_when(
+      employment_enrol ==0 & school_enrol ==0 ~ "no",
+      employment_enrol ==1 | school_enrol ==1 ~ "yes"
+    )
+  )
+ "inrelationship"
+ ##0 no boyfrined, 1 have boyfriend,  living together, 2 boyfriend not living togeether,
+table(filtered_data_backup$relationship)
+filtered_data_backup <- mutate(filtered_data_backup,
+    relationship = case_when(
+      relationship ==3 ~ 0,
+      relationship ==2 ~ 1,
+      relationship ==1 ~ 2,
+    )
+  )
+
+
+filtered_data_backup$inrelationship[filtered_data_backup$relationship==0] <- "no"
+filtered_data_backup$inrelationship[filtered_data_backup$relationship==1] <- "yes"
+filtered_data_backup$inrelationship[filtered_data_backup$relationship==2] <- "yes"
+
+ 
+##"anychild"
+##0=0 1=1 2=≥2
+table(filtered_data_backup$children)
+filtered_data_backup <- mutate(filtered_data_backup,
+    children = case_when(
+      children ==1 ~ 0,
+      children ==2 ~ 1,
+      children ==3 | children==4 ~ 2,
+    )
+  )
+
+
+
+filtered_data_backup$anychild[filtered_data_backup$children==0] <- "no"
+filtered_data_backup$anychild[filtered_data_backup$children==1] <- "yes"
+filtered_data_backup$anychild[filtered_data_backup$children==2] <- "yes"
+
+
+
+##alcohol frequency 
+table(filtered_data_backup$alcoholF)
+filtered_data_backup <- mutate(filtered_data_backup,
+    alcoholfreq = case_when(
+     alcoholF==1 ~ "never" ,
+     alcoholF==2 ~ "less than monthly or once a month", 
+     alcoholF==3| alcoholF==4| alcoholF==5 ~ "once or twice per week or more", 
+    )
+  )
+
+###HIV
+
+filtered_data_backup <- mutate(filtered_data_backup,
+    HIV = case_when(
+      HIV_status ==2 ~ "negative",
+      HIV_status ==1 ~ "positive", 
+      HIV_status==3 | HIV_status==4  ~ "uknown or PNTA"
+    )
+  )
+
+##these are the different subsets of data here is the one for any IPV 
+outdata<-subset(filtered_data_backup, peranyipv==0|peranyipv==1)
+
+
+##This is one for the any harship exposure variable
+comexpdata <-subset(outdata, anyhardship=="no"| anyhardship=="yes" )
+
+
+
+#Cleaning data and removing missing values on variables+co-variat
+
+ayavars <- c( "fi_change", "persipv", "perpipv", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope", "fi_nomoney", "fi_closure", "fi_supplies", "fi_transport", "fi_leavehshld", "relationship")
+
+comexpdata[,ayavars] <- lapply(comexpdata[,ayavars], factor)
+
+
+table(comexpdata$anyhardship, useNA = "always")
+
+      
+combdata<-comexpdata[c("record_id",
+                       "age", 
+                      "sex_orient2", 
+                      "inc_cat", 
+                      "inc_cat2",
+                       "schoolemploy", 
+                       "blk", 
+                       "inrelationship",
+                      "relationship",
+                       "anychild", 
+                       "nb_children",
+                       "nb_adults",
+                       "nb_seniors",
+                       "HIV", 
+                       "peranyipv", 
+                      "perpipv", 
+                       "persipv",
+                       "alcoholfreq", 
+                       "anyhardship",
+                       "cov_anxious", 
+                       "cov_worried", 
+                       "cov_upset", 
+                       "cov_nocope"
+                       
+)
+]
+
+
+```
+# Table 1 - outcome stratified
+This table show with missing data the any IPV outcome using the inc and exclu criteria.  
+```{r}
+Descriptivesanyipvna <- CreateTableOne(vars = c("anyhardship", "inc_decrease", "inc_cat", "foodharder", "age", "sex_orient2", "schoolemploy", "blk", "inrelationship" ,"relationship", "anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" , "alcoholfreq", "fi_nomoney", "fi_closure", "fi_supplies", "fi_transport", "fi_leavehshld", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = comexpdata, strata = "peranyipv", includeNA = T)
+Descriptivesanyipvna <- print(Descriptivesanyipvna, showAllLevels= TRUE)
+Descriptivesanyipvna <- as.data.frame(Descriptivesanyipvna)
+write.csv(x = Descriptivesanyipvna, file =  "Descriptivesanyipvna.csv")
+
+###This is using complete case with no missing included 
+Descriptivesanyipv <- CreateTableOne(vars = c("anyhardship", "inc_cat", "inc_decrease", "foodharder", "age", "sex_orient2", "schoolemploy", "blk", "inrelationship", "relationship","anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" , "alcoholfreq", "fi_nomoney", "fi_closure", "fi_supplies", "fi_transport", "fi_leavehshld", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = comexpdata, strata = "peranyipv", includeNA = F)
+Descriptivesanyipv <- print(Descriptivesanyipv)
+Descriptivesanyipv <- as.data.frame(Descriptivesanyipv)
+write.csv(x = Descriptivesanyipv, file =  "Descriptivesanyipv.csv")
+
+### This table is an overall table without the strata for the ANALYTIC SAMPLE. 
+Descriptivesanyipvoverall <- CreateTableOne(vars = c("anyhardship", "inc_decrease", "inc_cat", "foodharder", "age", "sex_orient2", "schoolemploy", "blk", "inrelationship" ,"relationship", "anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" , "alcoholfreq", "fi_nomoney", "fi_closure", "fi_supplies", "fi_transport", "fi_leavehshld", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = comexpdata, includeNA = T)
+Descriptivesanyipvoverall
+OverallTable <- print(Descriptivesanyipvoverall, showAllLevels= TRUE)
+OverallDescriptives <- as.data.frame(OverallTable)
+
+write.csv(x= OverallDescriptives, file = "OverallIPV.csv")
+
+```
+
+# Missing Data
+```{r}
+
+##this is how you can look at the missingness of the data here we are looking for the any IPV and any hardship variables 
+plot_missing(combdata)
+
+
+
+```
+
+# Table 1 - Complete Case analysis publishable
+```{r}
+
+###Now we want to run the same tables above without the missing data included so we just have to chence include NA from T to F and run the same tables but using the complete case data now 
+
+
+####Here we want to run the complete case for each of the outcomes 
+anyipvcase <- as.data.frame(na.omit(combdata))
+dim(comexpdata)
+dim(combdata)
+dim(anyipvcase)
+
+###Here now is the table with the any IPV outcome and complete case data 
+Descriptivesanyipvcc <- CreateTableOne(vars = c("anyhardship", "inc_cat", "inc_decrease", "foodharder", "age", "sex_orient2", "schoolemploy", "blk", "inrelationship", "relationship","anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" , "alcoholfreq", "fi_nomoney", "fi_closure", "fi_supplies", "fi_transport", "fi_leavehshld", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = anyipvcase, strata = "peranyipv", includeNA = F)
+
+Descriptivesanyipvcc <- print(Descriptivesanyipvcc, showAllLevels = TRUE, missing = TRUE, printToggle = FALSE, cramVars = TRUE, varLabels = TRUE, explain = FALSE) %>%
+  as_tibble(rownames = NA) 
+Complete_case <- print(Descriptivesanyipvcc, showAllLevels= TRUE)
+Descriptivesanyipvcc <- as.data.frame(Complete_case)
+
+
+
+write.csv(x = Descriptivesanyipvcc, file =  "Descriptivesanyipvcc_May17th2023.csv")
+```
+
+# Statistical Analysis
+Exposure to economic hardship will be measured through a combined exposure to either income decrease or food insecurity, with any IPV modeled on this combined exposure in our primary analysis. Three separate models will be utilized for each exposure-outcome relationship. The first model will be a simple binary logistic regression of each exposure and IPV perpetration, second will be age-adjusted, third will be covariate-adjusted.  As secondary analyses, the effect of economic hardship on the secondary outcomes of physical IPV perpetration and sexual IPV perpetration will be studied separately.
+
+## Bivariable Analyses
+Bivariable logistic regressions of the outcome of any IPV on each covariate will estimate the association, and the precision of these estimates, between each covariate and the outcome using the crude odds ratios (ORs) and 95% CIs, respectively. 
+
+
+
+### Any IPV 
+```{r}
+# sexual orientation
+SexualOrientationAnyIPV <- glm(I(peranyipv==1) ~ sex_orient2,
+                         data = anyipvcase, 
+                         family = binomial())
+
+publish(SexualOrientationAnyIPV)
+
+# school or employed
+SchoolEmployAnyIPV <- glm(I(peranyipv==1) ~ schoolemploy,
+                               data = anyipvcase, 
+                               family = binomial())
+publish(SchoolEmployAnyIPV)
+
+# race
+RaceAnyIPV <- glm(I(peranyipv==1) ~ blk,
+                               data = anyipvcase, 
+                               family = binomial())
+publish(RaceAnyIPV)
+
+# income 
+IncAnyIPV <- glm(I(peranyipv==1) ~ inc_cat,
+                               data = anyipvcase, 
+                               family = binomial())
+publish(IncAnyIPV)
+
+# Model using "inrelationship"
+InRelAnyIPV <- glm(I(peranyipv==1) ~ inrelationship, data = anyipvcase, family = binomial())
+publish(InRelAnyIPV)
+
+# Model using "relationship"
+InRel3AnyIPV <- glm(I(peranyipv==1) ~ relationship, data = anyipvcase, family = binomial())
+publish(InRel3AnyIPV)
+
+# Model using "anychild"
+AnyChildAnyIPV <- glm(I(peranyipv==1) ~ anychild, data = anyipvcase, family = binomial())
+publish(AnyChildAnyIPV)
+
+# Model using "nb_children"
+NbChildAnyIPV <- glm(I(peranyipv==1) ~ nb_children, data = anyipvcase, family = binomial())
+publish(NbChildAnyIPV)
+
+# Model using "nb_adults"
+NbAdultsAnyIPV <- glm(I(peranyipv==1) ~ nb_adults, data = anyipvcase, family = binomial())
+publish(NbAdultsAnyIPV)
+
+# Model using "nb_seniors"
+NbSeniorsAnyIPV <- glm(I(peranyipv==1) ~ nb_seniors, data = anyipvcase, family = binomial())
+publish(NbSeniorsAnyIPV)
+
+# Model using "HIV"
+HIVAnyIPV <- glm(I(peranyipv==1) ~ HIV, data = anyipvcase, family = binomial())
+publish(HIVAnyIPV)
+
+# Model using "alcoholfreq"
+AlcoholFreqAnyIPV <- glm(I(peranyipv==1) ~ alcoholfreq, data = anyipvcase, family = binomial())
+publish(AlcoholFreqAnyIPV)
+
+# Model using "cov_anxious"
+CovAnxiousAnyIPV <- glm(I(peranyipv==1) ~ cov_anxious, data = anyipvcase, family = binomial())
+publish(CovAnxiousAnyIPV)
+
+# Model using "cov_worried"
+CovWorriedAnyIPV <- glm(I(peranyipv==1) ~ cov_worried, data = anyipvcase, family = binomial())
+publish(CovWorriedAnyIPV)
+
+# Model using "cov_upset"
+CovUpsetAnyIPV <- glm(I(peranyipv==1) ~ cov_upset, data = anyipvcase, family = binomial())
+publish(CovUpsetAnyIPV)
+
+# Model using "cov_nocope"
+CovNoCopeAnyIPV <- glm(I(peranyipv==1) ~ cov_nocope, data = anyipvcase, family = binomial())
+publish(CovNoCopeAnyIPV)
+
+```
+
+
+
+### Physical IPV
+```{r}
+
+##Model using "inc_cat"
+IncPIPVPerc <- glm(I(perpipv==1) ~ inc_cat,
+                               data = anyipvcase, 
+                               family = binomial())
+publish(IncPIPVPerc)
+summ(IncPIPVPerc)
+# Model using "inrelationship"
+InRelPIPVPerc <- glm(I(perpipv==1) ~ inrelationship, data = anyipvcase, family = binomial())
+publish(InRelPIPVPerc)
+
+# Model using "relationship"
+InRel3PIPVPerc <- glm(I(perpipv==1) ~ relationship, data = anyipvcase, family = binomial())
+publish(InRel3PIPVPerc)
+
+# Model using "anychild"
+AnyChildPIPVPerc <- glm(I(perpipv==1) ~ anychild, data = anyipvcase, family = binomial())
+publish(AnyChildPIPVPerc)
+
+# Model using "nb_children"
+NbChildPIPVPerc <- glm(I(perpipv==1) ~ nb_children, data = anyipvcase, family = binomial())
+publish(NbChildPIPVPerc)
+
+# Model using "nb_adults"
+NbAdultsPIPVPerc <- glm(I(perpipv==1) ~ nb_adults, data = anyipvcase, family = binomial())
+publish(NbAdultsPIPVPerc)
+
+# Model using "nb_seniors"
+NbSeniorsPIPVPerc <- glm(I(perpipv==1) ~ nb_seniors, data = anyipvcase, family = binomial())
+publish(NbSeniorsPIPVPerc)
+
+# Model using "HIV"
+HIVPIPVPerc <- glm(I(perpipv==1) ~ HIV, data = anyipvcase, family = binomial())
+publish(HIVPIPVPerc)
+
+
+# Model using "alcoholfreq"
+AlcoholFreqPIPVPerc <- glm(I(perpipv==1) ~ alcoholfreq, data = anyipvcase, family = binomial())
+publish(AlcoholFreqPIPVPerc)
+
+# Model using "anyhardship"
+AnyHardshipPIPVPerc <- glm(I(perpipv==1) ~ anyhardship, data = anyipvcase, family = binomial())
+publish(AnyHardshipPIPVPerc)
+
+# Model using "cov_anxious"
+CovAnxiousPIPVPerc <- glm(I(perpipv==1) ~ cov_anxious, data = anyipvcase, family = binomial())
+publish(CovAnxiousPIPVPerc)
+
+# Model using "cov_worried"
+CovWorriedPIPVPerc <- glm(I(perpipv==1) ~ cov_worried, data = anyipvcase, family = binomial())
+publish(CovWorriedPIPVPerc)
+
+# Model using "cov_upset"
+CovUpsetPIPVPerc <- glm(I(perpipv==1) ~ cov_upset, data = anyipvcase, family = binomial())
+publish(CovUpsetPIPVPerc)
+
+# Model using "cov_nocope"
+CovNoCopePIPVPerc <- glm(I(perpipv==1) ~ cov_nocope, data = anyipvcase, family = binomial())
+publish(CovNoCopePIPVPerc)
+```
+
+### Sexual IPV
+```{r}
+
+##Model using "inc_cat"
+IncSIPVPerc <- glm(I(persipv==1) ~ inc_cat,
+                               data = anyipvcase, 
+                               family = binomial())
+publish(IncSIPVPerc)
+
+# Model using "inrelationship"
+InRelSIPVPerc <- glm(I(persipv==1) ~ inrelationship, data = anyipvcase, family = binomial())
+publish(InRelSIPVPerc)
+
+# Model using "relationship"
+InRel3SIPVPerc <- glm(I(persipv==1) ~ relationship, data = anyipvcase, family = binomial())
+publish(InRel3SIPVPerc)
+
+# Model using "anychild"
+AnyChildSIPVPerc <- glm(I(persipv==1) ~ anychild, data = anyipvcase, family = binomial())
+publish(AnyChildSIPVPerc)
+
+# Model using "nb_children"
+NbChildSIPVPerc <- glm(I(persipv==1) ~ nb_children, data = anyipvcase, family = binomial())
+publish(NbChildSIPVPerc)
+
+# Model using "nb_adults"
+NbAdultsSIPVPerc <- glm(I(persipv==1) ~ nb_adults, data = anyipvcase, family = binomial())
+publish(NbAdultsSIPVPerc)
+
+# Model using "nb_seniors"
+NbSeniorsSIPVPerc <- glm(I(persipv==1) ~ nb_seniors, data = anyipvcase, family = binomial())
+publish(NbSeniorsSIPVPerc)
+
+# Model using "HIV"
+HIVSIPVPerc <- glm(I(persipv==1) ~ HIV, data = anyipvcase, family = binomial())
+publish(HIVSIPVPerc)
+
+
+# Model using "alcoholfreq"
+AlcoholFreqSIPVPerc <- glm(I(persipv==1) ~ alcoholfreq, data = anyipvcase, family = binomial())
+publish(AlcoholFreqSIPVPerc)
+
+
+# Model using "cov_anxious"
+CovAnxiousSIPVPerc <- glm(I(persipv==1) ~ cov_anxious, data = anyipvcase, family = binomial())
+publish(CovAnxiousSIPVPerc)
+
+# Model using "cov_worried"
+CovWorriedSIPVPerc <- glm(I(persipv==1) ~ cov_worried, data = anyipvcase, family = binomial())
+publish(CovWorriedSIPVPerc)
+
+# Model using "cov_upset"
+CovUpsetSIPVPerc <- glm(I(persipv==1) ~ cov_upset, data = anyipvcase, family = binomial())
+publish(CovUpsetSIPVPerc)
+
+# Model using "cov_nocope"
+CovNoCopeSIPVPerc <- glm(I(persipv==1) ~ cov_nocope, data = anyipvcase, family = binomial())
+publish(CovNoCopeSIPVPerc)
+```
+
+## Crude Models 
+
+### n/% IPV perp by econ hardship manually
+```{r}
+
+# check the n and % IPV perp by econ hardship for the whole sample manually
+table(anyipvcase$peranyipv)
+table(anyipvcase$anyhardship)
+table(anyipvcase$peranyipv,anyipvcase$anyhardship)
+
+# IPV/hardship
+50/236  # = 21.2% 
+
+# IPV/no hardship
+24/282 # = 8.5%
+```
+
+### Any IPV
+```{r}
+# crude analysis model
+CrudeAnyIPV <- glm(I(peranyipv==1) ~ anyhardship,
+                         data = anyipvcase, 
+                         family = binomial(logit))
+nobs(CrudeAnyIPV)
+publish(CrudeAnyIPV)
+summ(CrudeAnyIPV, exp=T)
+```
+
+### Physical
+```{r}
+CrudePIPV <- glm(I(perpipv==1) ~ anyhardship,
+                 data = anyipvcase, 
+                 family = binomial())
+
+publish(CrudePIPV)
+```
+
+### Sexual
+```{r}
+
+CrudeSIPV <- glm(I(persipv==1) ~ anyhardship,
+                   data = anyipvcase, 
+                   family = binomial())
+
+publish(CrudeSIPV)
+
+
+```
+
+## Age adjusted
+The second model will be an age-adjusted model, and the final model will be adjusted for the common set of covariates. 
+
+### Any IPV
+```{r}
+AgeAdjustedAnyIPV <- glm(I(peranyipv==1) ~ anyhardship + age,
+              data = anyipvcase, 
+              family = binomial())
+
+publish(AgeAdjustedAnyIPV)
+summ(AgeAdjustedAnyIPV, exp=T)
+```
+
+### physical IPV
+```{r}
+AgeAdjustedPhysicalIPV <- glm(I(perpipv==1) ~ anyhardship + age, 
+                 data = anyipvcase, 
+                 family = binomial())
+
+publish(AgeAdjustedPhysicalIPV)
+summ(AgeAdjustedPhysicalIPV, exp=T)
+table(anyipvcase$peranyipv)
+```
+
+### Sexual IPV
+```{r}
+AgeAdjustedSexualIPV <- glm(I(persipv==1) ~ anyhardship + age,
+                         data = anyipvcase, 
+                         family = binomial())
+
+publish(AgeAdjustedSexualIPV)
+summ(AgeAdjustedSexualIPV,exp=T)
+```
+
+
+## Covariate Adjusted Analyses
+A covariate set will be adjusted for in all analyses, as outlined in the directed acyclic graphs (DAG) (appendix). 
+Table 2 of the manuscript will present the results of each of these statistical analyses.
+Statistical significance for the effect of economic hardship on IPV perpetration will be set at alpha=0.05. However, clinical, and public health significance, evaluated by the magnitude of the point estimates (ORs), and their precision (represented by confidence interval estimates), will guide our interpretation of the statistical analysis results, rather than null hypothesis significance testing (Greenland et al. 2016).  Only the effect of the exposure of interest will be reported from our adjusted analyses (Westreich and Greenland 2013).
+
+### Any IPV
+```{r}
+##all adjusted
+PeranyipvAllAjusted <- glm(I(peranyipv==1) ~ anyhardship + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+summ(PeranyipvAllAjusted, exp=T)
+#publish(PeranyipvAllAjusted)
+```
+
+### Physical IPV
+```{r}
+PerpipvAllAjusted <- glm(I(perpipv==1) ~ anyhardship + age + inc_cat + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+                           data = anyipvcase, 
+                           family = binomial())
+summ(PerpipvAllAjusted, exp=T)
+#publish(PerpipvAllAjusted)
+```
+
+### Sexual IPV
+```{r}
+PersipvAllAjusted <- glm(I(persipv==1) ~ anyhardship + age + inc_cat + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+                         data = anyipvcase, 
+                         family = binomial())
+
+#publish(PersipvAllAjusted)
+summ(PersipvAllAjusted, exp=T)
+```
+
+
+# Effect modification analyses
+We will test whether the effect of economic hardship on IPV perpetration differs by alcohol #usage, race, size of household. These will be adjusted for all baseline covariates with interaction terms by the economic hardship exposure variable for each effect modifier fit in separate logistic regressions that include interaction terms for the exposure by the hypothesized effect modifier in question.
+
+KC: Here it doesn't seem like any of the effect modifications are showing up significant let's discuss these results at our meeting next week
+
+NEED TO FIX
+
+```{r}
+####anyipv 
+hardalcperp <- glm(I(peranyipv==1) ~ anyhardship*alcoholfreq + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardalcperp)
+summ(hardalcperp, exp = T)
+
+
+##physical ipv 
+hardalcpperp <- glm(I(perpipv==1) ~ anyhardship*alcoholfreq + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardalcpperp)
+
+##sexual IPV 
+hardalcsperp <- glm(I(persipv==1) ~ anyhardship*alcoholfreq + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardalcsperp)
+###again we see that the effect is stronger in the sexual IPV perpetration and among those that drink where the never group the effect is stronger in the any group 
+
+##won't report this 
+hardraceperp <- glm(I(peranyipv==1) ~ anyhardship*blk + age + inc_cat + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardraceperp)
+
+##won't report this 
+hardchildperp <- glm(I(peranyipv==1) ~ anyhardship*anychild + inc_cat+ blk + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardchildperp)
+
+##in relationship any ipv 
+hardrelperp <- glm(I(peranyipv==1) ~ anyhardship*relationship + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardrelperp)
+summ(hardrelperp)
+##in relationship physical ipv 
+hardrelpperp <- glm(I(perpipv==1) ~ anyhardship*relationship + blk + inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardrelpperp)
+
+###in relationship sexual IPV 
+table(anyipvcase$inc_cat)
+table(anyipvcase$inc_cat2)
+
+hardrelsperp <- glm(I(persipv==1) ~ anyhardship*relationship + blk + age + sex_orient2 + schoolemploy + inc_cat + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardrelsperp)
+tab_model(hardrelperp,hardrelsperp, hardrelpperp)
+###income any IPV 
+hardincperp <- glm(I(peranyipv==1) ~ anyhardship*inc_cat2 + relationship + inc_cat2 + blk + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardincperp)
+
+##income physical IPV 
+hardincpperp <- glm(I(perpipv==1) ~ anyhardship*inc_cat2 + relationship + blk + inc_cat2 + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardincpperp)
+
+##income sexual IPV 
+hardincsperp <- glm(I(persipv==1) ~ anyhardship*inc_cat2 + relationship + blk + inc_cat2 + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+publish(hardincsperp)
+
+
+
+
+
+
+```
+
+#Interpretation 
+####interpretation 
+###Among those not in relationship the relationship between economic hardship -> IPV perpetration 
+
+among thos who never drank during the pandemic association between economic hardship and IPV perpetration was strongest 
+
+When we looked at sexual IPV and alcohol the association was strongest among the group that drank the most 
+
+association between economic hardship and IPV perpetration was similar across income groups (no effect modification) which I think is something to highlight 
+
+# Sensitivity Analyses
+
+## dropping potential intermediaries
+M-bias can be induced when adjusting for intermediate variables on the causal pathway from the exposure to the outcome.  For example, worry, anxiety, being upset, and not coping well during covid might be caused by exposure to economic hardship during covid, which then places them on the  pathway from econ hardship to IPV perpetration.  This sensitivity analysis removes those potential mediating variables from the total effect estimation model.
+
+KC: Could we also argue that alcohol could be a potential mediator? If we remove the alcohol variable this then changes to 0.03 but if we include nb children then this effect is reduced 
+
+```{r}
+PeranyipvAllAjusted_sens1 <- glm(I(peranyipv==1) ~ anyhardship + age + sex_orient2 + schoolemploy + blk + inrelationship + anychild + nb_children  + nb_adults + nb_seniors + HIV,
+              data = anyipvcase, 
+              family = binomial())
+summ(PeranyipvAllAjusted_sens1, exp=T) 
+publish(PeranyipvAllAjusted_sens1) 
+```
+##### interpretation
+this analysis shows that the total effect of econ hardship is greater when not adjusted for potential intermediates on path to IPV perpetration.  Could do a formal mediation analysis to assess potential mediation of econ hardship's effect on IPV perpetration.   
+
+## adjusting for nb_children
+This sensitivity analysis adds potential confounder number of children as a covariate in the primary total effect estimation model. This was listed in the DAG so should be in primary analysis.  
+
+```{r}
+PeranyipvAllAjusted_sens2 <- glm(I(peranyipv==1) ~ anyhardship + age + sex_orient2 + schoolemploy + blk + inrelationship + anychild  + nb_children + nb_adults + nb_seniors+ HIV + alcoholfreq + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+summ(PeranyipvAllAjusted_sens2, exp=T) 
+publish(PeranyipvAllAjusted_sens2) 
+```
+
+```{r}
+### Model 
+tab_model(PeranyipvAllAjusted_sens1, PeranyipvAllAjusted_sens2)
+
+
+
+```
+##### interpretation
+adding the number of children to the adjustment variables in the model substantially reduces the OR for economic hardship, beyond adjusting for anychildren, to 1.42 from 1.67.
+
+
+
+## Propensity score matching weights analysis
+The goal of PS analyses are to balance  measured covariates between exposure groups.  In this instance, to address potential imbalance in covariates between exposure groups, we will conduct a propensity score (PS) matching weight (MW) analysis.  The PS is the probability of experiencing economic hardship, conditional on the covariates, and is estimated as follows (Rosenbaum and Rubin, 1983, p. 42):
+
+ei = Pr(Zi=1|Xi),
+
+Where Xi is a vector of covariate values for subject i.
+
+In this PS MW analysis, we will include all the covariates listed in the DAG in a PS model to predict economic hardship.  After, we will calculate the MW from the PS using the following formula from Li and Greene (2013, p. 218): 
+
+Wi = min(1-ei, ei) / Ziei + (1-Zi)(1-ei)
+
+Where Wi is the weight for subject i, ei is the PS for subject i, and Zi is the exposure status (exposed to economic hardship, Z=1; not exposed to economic hardship, Z=0).  
+
+After the MW are estimated, we will assess balance between exposure groups using standardized mean differences (SMD) in an exposure-stratified Table 1, before and after weighting by the PS-MW.  To estimate the effect of economic hardship on IPV perpetration, we will use the MW to weight an outcome logistic regression of IPV perpetration outcomes on the economic hardship exposure indicator variable, with double adjustment for any covariates that are not balanced (SMD<0.1) after PS-MW weighting.  
+
+### PS model
+Predicted probability of econ hardship, conditional on the covariates.  I.e., propensity score.  Same covs as the main analysis, but now collapsed into matching weights. 
+```{r}
+
+# check the exposure variable we are predicting
+table(anyipvcase$anyhardship)
+
+# predict econ hardship with adjusted logistic regression 
+ps.model.anyhardship <- glm(I(anyhardship=="yes") ~ inc_cat + age + sex_orient2 + schoolemploy + blk + relationship + anychild  + nb_adults + nb_seniors+ nb_children + HIV + alcoholfreq + cov_anxious + cov_worried + cov_upset + cov_nocope,
+              data = anyipvcase, 
+              family = binomial())
+
+# check PS model
+summ(ps.model.anyhardship, exp=T)
+
+# extract PS and add to dataset
+anyipvcase$ps<-predict(ps.model.anyhardship, data=anyipvcase, type="response")
+
+# check PS overlap with density plots overlaying econ hardship (exposure) groups
+plot(density(anyipvcase$ps[anyipvcase$anyhardship=="yes"]), lty= "dashed")
+lines(density(anyipvcase$ps[anyipvcase$anyhardship=="no"]))
+
+# calculate PS matching weights
+
+# define the exposure groups - econ hardship yes/no
+anyipvcase$group<-ifelse(anyipvcase$anyhardship=="yes", "Econ Hardship","No Econ Hardship")
+anyipvcase$exposed<-ifelse(anyipvcase$anyhardship=="yes", 1,0)
+table(anyipvcase$group)
+
+# ps matching weights - check PS and calculated the MWs
+summary(anyipvcase$ps)
+
+# matching weight formula
+anyipvcase$ps_recip<-1-anyipvcase$ps
+anyipvcase <- transform(anyipvcase, mw_numerator = pmin(ps, ps_recip))
+anyipvcase$mw_denominator<-(anyipvcase$exposed*anyipvcase$ps +(1-anyipvcase$exposed)*(1-anyipvcase$ps))
+anyipvcase$mw_new<-anyipvcase$mw_numerator/anyipvcase$mw_denominator
+
+# check the PS-MW vars
+summary(anyipvcase$mw_numerator)
+summary(anyipvcase$ps)
+summary(anyipvcase$mw_denominator)
+summary(anyipvcase$mw_new)
+
+```
+
+### Table 1 pre/post-PS-MW
+#### Crude Table 1
+```{r}
+
+table1crude <- CreateTableOne(vars = c("age", "sex_orient2", "schoolemploy", "blk", "inrelationship" ,"anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" ,  "alcoholfreq", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = anyipvcase, strata = "anyhardship", includeNA = F, smd=T, test=F)
+
+table1crude
+table1crude_print <- print(table1crude, varLabels = TRUE, explain = FALSE, smd=TRUE) 
+table1crude_print
+
+
+```
+##### interpretations
+Covariates not balanced.
+
+#### Weighted Table 1
+```{r}
+# create survey design object weighted by PS-MWs
+weighted_table1_data <- svydesign(ids = ~ 1, data = anyipvcase, weights = ~ mw_new)
+
+table1wt <- svyCreateTableOne(vars = c("age", "sex_orient2", "schoolemploy","inc_cat", "blk", "inrelationship" ,"anychild", "nb_children", "nb_adults", "nb_seniors", "HIV" , "alcoholfreq", "cov_anxious", "cov_worried", "cov_upset", "cov_nocope"),data = weighted_table1_data, strata = "anyhardship", smd=T)
+
+str(weighted_table1_data)
+
+table1wt_print <- print(table1wt, test=FALSE, smd=TRUE) 
+table1wt_print
+
+
+```
+##### interpretations
+Balance achieved across covariates.
+
+### Outcome Models
+Logistic regression of the outcome variable (any IPV) on the exposure variable (econ hardship), weighted by PS-MWs.
+
+Andrew note: the secondary analyses don't run because the are in a different dataset than that of the PS.  Need to make all into 1 analytic dataset.  Update inclusion criteria to require complete data on both sex and phys IPV perpetration.
+
+#### Primary analysis: Any IPV PS-MW analysis
+```{r}
+PS_MW_anyIPV <- glm(I(peranyipv==1) ~ anyhardship,
+                         data = anyipvcase, 
+                         family = binomial(),
+                    weights = mw_new)
+nobs(PS_MW_anyIPV)
+summ(PS_MW_anyIPV, exp=TRUE)
+```
+
+##### interpretations
+There was an estimated XX% higher odds of any IPV by econ hardship, with a 95% CI of XX-XX.
+
+
+#### Secondary analysis: Physical IPV PS-MW analysis
+```{r}
+
+#
+PS_MW_pIPV <- glm(I(perpipv==1) ~ anyhardship, data = anyipvcase, family = binomial(), weights = mw_new)
+#
+summ(PS_MW_pIPV, exp=TRUE)
+```
+
+##### interpretations
+Write your interpretations here.
+
+#### Secondary analysis: Sexual IPV PS-MW analysis
+```{r}
+PS_MW_sIPV <- glm(I(persipv==1) ~ anyhardship, data = anyipvcase, family = binomial(), weights = mw_new)
+summ(PS_MW_sIPV, exp=TRUE)
+```
+
+##### interpretations
+Write your interpretations here.
+
+
+### Unmeasured confounding assessment (E-value analysis)
+The potential for unmeasured confounding by childhood trauma, community factors such as attitudes towards crime to explain our main analysis effect estimate will be assessed using the E-value approach (Vanderweele and Ding 2017).  We will calculate E-values for the adjusted OR point estimate and lower 95% confidence limit, as recommended (Vanderweele and Mathur 2020).  Furthermore, we will compare the results of our E-value analysis with available literature estimates of the adjusted effects of potential unmeasured confounders on exposure and outcomes, considering the covariates included in our analyses (Vanderweele and Mathur 2020). 
+
+E-value = RR+ sqrt(RR * RR-1)
+
+#### E-Value for Primary analysis
+```{r}
+# put the OR/RR/HR from the analysis you want to calculate an e-Value for in the RR=
+
+#point estimate (OR) E-Value
+RR1=1.83
+RR1+ sqrt(RR1 * RR1-1)
+```
+##### interpretation
+An unmeasured confounder with RR>3.36 association with both the outcome and the exposure, conditional on the measured covariates, could  explain away the RR of 1.83 to 1.00 (null) for economic hardship's effect on IPV perpetration, but weaker confounding could not.  
+
+#### E-value for PS-MW analysis
+```{r}
+# put the OR/RR/HR from the analysis you want to calculate an e-Value for in the RR=
+
+#point estimate (OR) E-Value
+RR2= 1.57
+RR2+ sqrt(RR2 * RR2-1)
+```
+##### interpretation
+An association of OR>2.78 with the outcome and exposure, conditional on the measured covariates through PS-MW, would be required to explain away the OR  of 1.57 to 1.00 for economic hardship's effect on any IPV perpetration, but weaker confounding could not.
+
+# Reviewer requested revisions
+
+
+# References
+
+AYAZAZI RIGHTS Manuscript Outline v.2.3, July 2022.  Internal document.  
+
+Greenland S, Senn SJ, Rothman KJ, et al. Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol. 2016;31(4):337-350. doi:10.1007/s10654-016-0149-3
+
+ Li L, Greene T. A weighting analogue to pair matching in propensity score analysis. Int J Biostat. 2013;9(2):215-234. doi:10.1515/ijb-2012-0030
+
+Rosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. Biometrika. 1983;70(1):41-55. doi:10.1093/biomet/70.1.41
+
+Westreich D, Greenland S. The table 2 fallacy: Presenting and interpreting confounder and modifier coefficients. Am J Epidemiol. 2013;177(4):292-298. doi:10.1093/aje/kws412’
+
+VanderWeele TJ, Ding P. Sensitivity Analysis in Observational Research: Introducing the E-Value. Ann Intern Med. 2017;167(4):268. doi:10.7326/M16-2607
+
+Vanderweele TJ. Principles of confounder selection. Eur J Epidemiol. 2019;34(3):211-219. doi:10.1007/s10654-019-00494-6
+
+Vanderweele TJ, Mathur MB. Commentary: Developing best-practice guidelines for the reporting of E-values. Int J Epidemiol. 2020;0(0):1-3. doi:10.1093/ije/dyaa094
